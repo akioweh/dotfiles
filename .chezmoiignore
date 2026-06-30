@@ -1,0 +1,12 @@
+# secrets
+.config/gh/hosts.yml
+
+# generated backups
+.config/kitty/kitty.conf.bak
+
+# omz generated
+.oh-my-zsh/custom/example.zsh
+.oh-my-zsh/custom/plugins/example
+.oh-my-zsh/custom/themes/example.zsh-theme
+
+README.md

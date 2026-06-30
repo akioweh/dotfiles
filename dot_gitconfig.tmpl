@@ -1,0 +1,70 @@
+[user]
+	name = {{ .name }}
+	email = {{ .email }}
+{{ if .signCommits }}	signingKey = ~/.ssh/id_ed25519_github.pub
+{{ end -}}
+{{ if .useUCL -}}
+[credential "https://scm4.cs.ucl.ac.uk"]
+	provider = generic
+{{ end -}}
+{{ if .signCommits -}}
+[gpg]
+	format = ssh
+{{ end -}}
+[core]
+	autocrlf = input
+  editor = nvim
+  pager = delta
+{{ if .signCommits -}}
+[commit]
+	gpgsign = true
+{{ end -}}
+[init]
+	defaultBranch = main
+{{ if .signCommits -}}
+[gpg "ssh"]
+	allowedSignersFile = ~/.config/git/allowed-signers.txt
+{{ end -}}
+[filter "lfs"]
+	process = git-lfs filter-process
+	required = true
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
+[interactive]
+  diffFilter = delta --color-only
+[pager]
+  difftool = true
+[merge]
+  tool = nvimdiff
+  conflictstyle = zdiff3
+[mergetool]
+  prompt = false
+[mergetool "nvimdiff"]
+  cmd = nvim -d $BASE $LOCAL $REMOTE $MERGED -c '$wincmd w' -c 'wincmd J'
+[diff]
+  tool = difft
+  colorMoved = default
+[difftool]
+  prompt = false
+[difftool "difft"]
+  cmd = difft --color=always "$MERGED" "$LOCAL" "abcdef1" "100644" "$REMOTE" "abcdef2" "100644"
+[difftool "nvimdiff"]
+  cmd = nvim -d "$LOCAL" "$REMOTE"
+[alias]
+  showt = -c diff.external="\"difft --syntax-highlight off\"" show --ext-diff
+  difft = -c diff.external="\"difft --syntax-highlight off\"" diff
+  logt  = -c diff.external="\"difft --syntax-highlight off\"" log -p --ext-diff
+  showd = -c core.pager=delta -c delta.side-by-side=true show --no-ext-diff
+  diffd = -c core.pager=delta -c delta.side-by-side=true diff --no-ext-diff
+  logd  = -c core.pager=delta -c delta.side-by-side=true log -p --no-ext-diff
+[include]
+  path = ~/.config/catppuccin.gitconfig
+[delta]
+  nagivate = true
+  hyperlinks = true
+  line-numbers = true
+  features = catppuccin-mocha
+  grep-output-type = ripgrep
+  grep-match-word-style = red "#403520"
+  grep-match-line-style = syntax
+  grep-file-style = bold purple

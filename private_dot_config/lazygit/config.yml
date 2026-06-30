@@ -1,0 +1,144 @@
+gui:
+  scrollOffMargin: 3
+
+  nerdFontsVersion: "3"
+
+  # Whether to show the divergence from the base branch in the branches view.
+  # One of: 'none' | 'onlyArrow'  | 'arrowAndNumber'
+  showDivergenceFromBaseBranch: arrowAndNumber
+
+  # Window border style.
+  # One of 'rounded' (default) | 'single' | 'double' | 'hidden' | 'bold'
+  border: single
+
+  spinner:
+    frames:
+      - "⠋"
+      - "⠙"
+      - "⠹"
+      - "⠸"
+      - "⠼"
+      - "⠴"
+      - "⠦"
+      - "⠧"
+      - "⠇"
+      - "⠏"
+      # - '󱑋 '
+      # - '󱑌 '
+      # - '󱑍 '
+      # - '󱑎 '
+      # - '󱑏 '
+      # - '󱑐 '
+      # - '󱑑 '
+      # - '󱑒 '
+      # - '󱑓 '
+      # - '󱑔 '
+      # - '󱑕 '
+      # - '󱑖 '
+    rate: 50
+
+git:
+  # Array of pagers. Each entry has the following format:
+  #
+  #   # Value of the --color arg in the git diff command. Some pagers want
+  #   # this to be set to 'always' and some want it set to 'never'
+  #   colorArg: "always"
+  #
+  #   # e.g.
+  #   # diff-so-fancy
+  #   # delta --dark --paging=never
+  #   # ydiff -p cat -s --wrap --width={{columnWidth}}
+  #   pager: ""
+  #
+  #   # e.g. 'difft --color=always'
+  #   externalDiffCommand: ""
+  #
+  #   # If true, Lazygit will use git's `diff.external` config for paging.
+  #   # The advantage over `externalDiffCommand` is that this can be
+  #   # configured per file type in .gitattributes; see
+  #   # https://git-scm.com/docs/gitattributes#_defining_an_external_diff_driver.
+  #   useExternalDiffGitConfig: false
+  #
+  # See https://github.com/jesseduffield/lazygit/blob/master/docs/Custom_Pagers.md
+  # for more information.
+  pagers:
+    - pager: delta --paging=never
+    - externalDiffCommand: difft --color=always
+    - useExternalDiffGitConfig: false # default
+
+  # If true, parse emoji strings in commit messages e.g. render :rocket: as 🚀
+  # (This should really be under 'gui', not 'git')
+  parseEmoji: false
+  overrideGpg: true
+
+# If true, exit Lazygit when the user presses escape in a context where there is
+# nothing to cancel/close
+quitOnTopLevelReturn: true
+
+# Config relating to things outside of Lazygit like how files are opened,
+# copying to clipboard, etc
+os:
+  # Whether lazygit suspends until an edit process returns
+  # editInTerminal: false
+
+  # A built-in preset that sets all of the above settings. Supported presets are
+  # defined in the getPreset function in editor_presets.go.
+  editPreset: "nvim"
+
+  # CopyToClipboardCmd is the command for copying to clipboard.
+  # See https://github.com/jesseduffield/lazygit/blob/master/docs/Config.md#custom-command-for-copying-to-and-pasting-from-clipboard
+  copyToClipboardCmd: "wl-copy"
+
+  # ReadFromClipboardCmd is the command for reading the clipboard.
+  # See https://github.com/jesseduffield/lazygit/blob/master/docs/Config.md#custom-command-for-copying-to-and-pasting-from-clipboard
+  readFromClipboardCmd: "wl-paste"
+
+  # A shell startup file containing shell aliases or shell functions. This will be
+  # sourced before running any shell commands, so that shell functions are
+  # available in the `:` command prompt or even in custom commands.
+  # See https://github.com/jesseduffield/lazygit/blob/master/docs/Config.md#using-aliases-or-functions-in-shell-commands
+  shellFunctionsFile: ""
+
+# If true, don't display introductory popups upon opening Lazygit.
+disableStartupPopups: true
+
+# See https://github.com/jesseduffield/lazygit/blob/master/docs/Custom_Command_Keybindings.md
+customCommands:
+  - key: "P"
+    context: "remotes"
+    description: "Fetch PR"
+    command: "git fetch {{.SelectedRemote.Name}}
+      pull/{{.Form.PRNumber}}/head:pr-{{.SelectedRemote.Name}}-{{.Form.PRNumber\
+      }}"
+    prompts:
+      - type: "input"
+        title: "Enter PR Number:"
+        key: "PRNumber"
+        initialValue: ""
+    loadingText: "Fetching PR..."
+
+# See https://github.com/jesseduffield/lazygit/blob/master/docs/Config.md#custom-pull-request-urls
+services: {}
+
+keybinding:
+  universal:
+    prevItem-alt: k
+    nextItem-alt: ;
+    prevPage: ","
+    nextPage: .
+    scrollLeft: J
+    scrollRight: L
+    prevBlock: <left>
+    nextBlock: <right>
+    prevBlock-alt: j
+    nextBlock-alt: l
+    confirmInEditor: <a-enter>
+    scrollUpMain: <pgup>
+    scrollDownMain: <pgdown>
+    scrollUpMain-alt1: <c-k>
+    scrollDownMain-alt1: <c-d>
+    scrollUpMain-alt2: <c-u>
+  commits:
+    # why can't lazygit support more alt-keys?
+    moveDownCommit: <c-j>
+    moveUpCommit: <c-l>
