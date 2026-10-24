@@ -1,7 +1,7 @@
 [user]
 	name = {{ .name }}
 	email = {{ .email }}
-{{ if .signCommits }}	signingKey = ~/.ssh/id_ed25519_github.pub
+{{ if .signCommits }}	signingKey = {{ .signingKey }}
 {{ end -}}
 {{ if .useUCL -}}
 [credential "https://scm4.cs.ucl.ac.uk"]

@@ -1,9 +1,14 @@
 {{- $name := promptStringOnce . "name" "Git user.name" -}}
 {{- $email := promptStringOnce . "email" "Git user.email" -}}
 {{- $sign := promptBoolOnce . "signCommits" "Enable SSH commit signing (needs your signing key present on this machine)" false -}}
+{{- $signingKey := "" -}}
+{{- if $sign -}}
+{{-   $signingKey = promptStringOnce . "signingKey" "Path to your SSH signing key (public)" "~/.ssh/git.pub" -}}
+{{- end -}}
 {{- $ucl := promptBoolOnce . "useUCL" "Enable the UCL scm4.cs.ucl.ac.uk credential helper" false -}}
 [data]
     name = {{ $name | quote }}
     email = {{ $email | quote }}
     signCommits = {{ $sign }}
+    signingKey = {{ $signingKey | quote }}
     useUCL = {{ $ucl }}
