@@ -142,4 +142,11 @@ function rgd() {
   rg --json "$@" | delta
 }
 
-alias n="nvim ."
+# "nvim" is too long to type
+n() {
+  if (( $# == 0 )); then
+    nvim .
+  else
+    nvim "$@"
+  fi
+}
