@@ -62,6 +62,7 @@ zstyle ':omz:plugins:fnm' autostart yes
 plugins=(
   fzf
   extract
+  universalarchive
   z
   kitty
   copypath
