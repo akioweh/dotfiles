@@ -5,7 +5,7 @@ managed with [chezmoi](https://chezmoi.io)
   | File                                                    | What it configures                                                                    |
   | ------------------------------------------------------- | ------------------------------------------------------------------------------------- |
   | `dot_zshrc`                                             | zsh + Oh My Zsh + fzf + plugins                                                       |
-  | `dot_gitconfig.tmpl`                                    | git identity (templated), delta, difftools, signing (opt-in), UCL credential (opt-in) |
+  | `private_dot_config/git/config.tmpl`                    | git identity (templated), delta, difftools, signing (opt-in), UCL credential (opt-in) |
   | `private_dot_config/omp/`                               | oh-my-posh prompt (Catppuccin Mocha)                                                  |
   | `private_dot_config/kitty/`                             | kitty terminal                                                                        |
   | `private_dot_config/lazygit/`                           | lazygit                                                                               |
